@@ -1,15 +1,19 @@
+import { useContext } from "react";
 import { FOOD_API_URL } from "../apis/foodApi";
 import { Meal } from "../types";
 import { currencyFormatter } from "../utils/formatting";
 import Button from "./ui/Button";
+import { CartContext } from "../store/CartContext";
 
 interface MealItemProps {
   meal: Meal;
 }
 
 const MealItem = ({ meal }: MealItemProps) => {
-  const handleClick = () => {
-    console.log("Meal Button clicked");
+  const cartCtx = useContext(CartContext);
+
+  const handleAddMealToCart = () => {
+    cartCtx.addItem(meal);
   };
 
   return (
@@ -24,7 +28,7 @@ const MealItem = ({ meal }: MealItemProps) => {
           <p className="meal-item-description">{meal.description}</p>
         </div>
         <p className="meal-item-actions">
-          <Button onClick={handleClick}>Add to Cart</Button>
+          <Button onClick={handleAddMealToCart}>Add to Cart</Button>
         </p>
       </article>
     </li>
