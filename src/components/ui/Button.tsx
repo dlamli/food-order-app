@@ -2,6 +2,7 @@ interface ButtonProps {
   children?: React.ReactNode;
   className?: string;
   textOnly?: boolean;
+  onClick?: () => void;
 }
 
 const Button = ({ children, textOnly, className, ...props }: ButtonProps) => {
