@@ -2,6 +2,7 @@ interface ButtonProps {
   children?: React.ReactNode;
   className?: string;
   textOnly?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
   onClick?: () => void;
 }
 
