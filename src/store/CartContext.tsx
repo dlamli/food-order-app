@@ -7,8 +7,8 @@ interface CartContextProviderProps {
 
 export const CartContext = createContext<CartContextProps>({
   items: [],
-  addItem: (item: Meal) => {},
-  removeItem: (id: string) => {},
+  addItem: (item: Meal) => item,
+  removeItem: (id: string) => id,
 });
 
 const cartReducer = (state: State, action: Action) => {
