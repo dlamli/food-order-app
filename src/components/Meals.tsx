@@ -1,34 +1,29 @@
-import { useCallback, useEffect, useState } from "react";
 import { MEALS_API_URL } from "../apis/foodApi";
-import { Meal } from "../types";
 import MealItem from "./MealItem";
+import useHttp from "../hooks/useHttp";
+import { Meal } from "../types";
+import Error from "./Error";
+
+const requestConfig = {};
 
 const Meals = () => {
-  const [meals, setMeals] = useState<Meal[] | null>(null);
+  const {
+    data: meals,
+    isLoading,
+    error,
+  } = useHttp(MEALS_API_URL, [], requestConfig);
 
-  const fetchMeals = useCallback(async () => {
-    try {
-      const response = await fetch(MEALS_API_URL);
+  if (isLoading) return <p className="center">Loading Meals...</p>;
 
-      if (!response) {
-        // TODO: Handle response fail
-      }
-
-      const data = await response.json();
-      setMeals(data);
-    } catch (error) {
-      throw new Error(`An error ocurred: ${error}`);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchMeals();
-  }, []);
+  if (error)
+    return (
+      <Error className="center" title="Failed to load meals" message={error} />
+    );
 
   return (
     <ul id="meals">
-      {meals?.map((meal) => (
-        <MealItem key={meal.id} meal={meal}/>
+      {meals?.map((meal: Meal) => (
+        <MealItem key={meal.id} meal={meal} />
       ))}
     </ul>
   );

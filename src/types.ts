@@ -19,6 +19,7 @@ export interface CartContextProps {
   items: CartMeal[],
   addItem: (item: Meal) => void;
   removeItem: (item: string) => void;
+  clearCart: () => void;
 }
 
 export interface UserProgress {
@@ -30,7 +31,7 @@ export interface UserProgress {
 }
 
 export type Action = {
-  item: Meal;
+  item?: Meal;
   type: ActionType;
 }
 
@@ -38,6 +39,14 @@ export type State = {
   items: CartMeal[];
 }
 
-export type ActionType = 'ADD_ITEM' | 'REMOVE_ITEM';
+export interface FetchConfig {
+  method?: HttpMethod | 'GET';
+  headers?: { [key: string]: string };
+  body?: string;
+}
+
+export type ActionType = 'ADD_ITEM' | 'REMOVE_ITEM' | 'CLEAR_CART';
 
 export type Progress = '' | 'cart' | 'checkout';
+
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
